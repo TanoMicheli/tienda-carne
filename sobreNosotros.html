@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nosotros - Carnes Premium</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+    <!-- Navbar Mejorado -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="background: linear-gradient(135deg, #2c3e50, #1a1a1a);">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <i class="fas fa-utensils me-2"></i>
+          <span class="brand-text">Carnes Premium</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+            <li class="nav-item"><a class="nav-link active" href="sobreNosotros.html">Sobre Nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+          </ul>
+          <div class="d-flex align-items-center gap-3">
+            <a href="tel:+5491112345678" class="nav-link phone-link d-none d-lg-flex align-items-center">
+              <i class="fas fa-phone-alt"></i>
+              <span>+54 9 11 1234-5678</span>
+            </a>
+            <a class="nav-link position-relative cart-icon" href="#" id="cartBtn">
+              <i class="fas fa-shopping-cart fa-lg"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section text-white d-flex align-items-center" style="margin-top: 76px;">
+        <div class="overlay"></div>
+        <div class="container text-center position-relative">
+            <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInDown">Nuestra Historia</h1>
+            <p class="lead animate__animated animate__fadeInUp">Más de 15 años de tradición y calidad en cada corte</p>
+        </div>
+    </header>
+
+    <!-- Historia Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" 
+                             class="img-fluid rounded-3 shadow-lg" alt="Nuestra Carnicería">
+                        <div class="position-absolute top-0 start-0 translate-middle p-3 bg-danger text-white rounded-circle">
+                            <i class="fas fa-medal fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4">Tradición Familiar</h2>
+                    <p class="lead mb-4">Desde 2008, hemos estado sirviendo a nuestra comunidad con los mejores cortes de carne, manteniendo viva la tradición familiar y la excelencia en el servicio.</p>
+                    <div class="d-flex gap-4 mb-4">
+                        <div class="text-center">
+                            <h3 class="text-danger fw-bold">15+</h3>
+                            <p class="text-muted">Años de experiencia</p>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-danger fw-bold">1000+</h3>
+                            <p class="text-muted">Clientes satisfechos</p>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-danger fw-bold">50+</h3>
+                            <p class="text-muted">Cortes diferentes</p>
+                        </div>
+                    </div>
+                    <a href="#valores" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-down me-2"></i>Conoce Nuestros Valores
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Valores Section -->
+    <section class="py-5 bg-white" id="valores">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Nuestros Valores</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-4">
+                                <i class="fas fa-heart fa-3x text-danger"></i>
+                            </div>
+                            <h4 class="card-title">Pasión</h4>
+                            <p class="card-text text-muted">Amamos lo que hacemos y nos apasiona seleccionar los mejores cortes para nuestros clientes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-4">
+                                <i class="fas fa-award fa-3x text-danger"></i>
+                            </div>
+                            <h4 class="card-title">Calidad</h4>
+                            <p class="card-text text-muted">Nos comprometemos a ofrecer solo los mejores productos, seleccionados con los más altos estándares.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-4">
+                                <i class="fas fa-handshake fa-3x text-danger"></i>
+                            </div>
+                            <h4 class="card-title">Confianza</h4>
+                            <p class="card-text text-muted">Construimos relaciones duraderas con nuestros clientes basadas en la honestidad y el servicio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Nuestro Proceso</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">1</div>
+                        <h4>Selección</h4>
+                        <p class="text-muted">Seleccionamos cuidadosamente cada corte de carne.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">2</div>
+                        <h4>Preparación</h4>
+                        <p class="text-muted">Preparamos cada corte con técnicas tradicionales.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">3</div>
+                        <h4>Control</h4>
+                        <p class="text-muted">Realizamos controles de calidad exhaustivos.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">4</div>
+                        <h4>Entrega</h4>
+                        <p class="text-muted">Entregamos tu pedido con la máxima frescura.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipo Section -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Nuestro Equipo</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="team-member text-center">
+                        <div class="member-image mb-4">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" 
+                                 class="rounded-circle img-fluid" alt="Miembro del equipo">
+                        </div>
+                        <h4>Juan Pérez</h4>
+                        <p class="text-danger">Fundador</p>
+                        <p class="text-muted">Más de 20 años de experiencia en el rubro.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member text-center">
+                        <div class="member-image mb-4">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" 
+                                 class="rounded-circle img-fluid" alt="Miembro del equipo">
+                        </div>
+                        <h4>María González</h4>
+                        <p class="text-danger">Carnicera Principal</p>
+                        <p class="text-muted">Especialista en cortes premium.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member text-center">
+                        <div class="member-image mb-4">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" 
+                                 class="rounded-circle img-fluid" alt="Miembro del equipo">
+                        </div>
+                        <h4>Carlos Rodríguez</h4>
+                        <p class="text-danger">Chef Asesor</p>
+                        <p class="text-muted">Experto en preparaciones y cortes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-danger text-white">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4">¿Listo para probar nuestros cortes?</h2>
+            <p class="lead mb-4">Descubre la diferencia de la calidad premium en cada bocado.</p>
+            <a href="productos.html" class="btn btn-light btn-lg">
+                <i class="fas fa-utensils me-2"></i>Ver Nuestros Productos
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer Mejorado -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <h5 class="mb-3">Carnes Premium</h5>
+                    <p class="text-muted">Calidad y frescura en cada corte. Tu carnicería de confianza.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="mb-3 text-white">Horario de Atención</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2 text-white ">Lunes a Viernes: 8:00 - 20:00</li>
+                        <li class="mb-2 text-white">Sábados: 8:00 - 18:00</li>
+                        <li class="text-white">Domingos: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2024 Carnes Premium. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Términos y Condiciones</a>
+                    <a href="#" class="text-white text-decoration-none">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        /* Estilos generales */
+        .hero-section {
+            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+            height: 50vh;
+            position: relative;
+            margin-top: 76px;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+        }
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(220, 53, 69, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .card:hover .icon-wrapper {
+            transform: scale(1.1);
+            background: rgba(220, 53, 69, 0.2);
+        }
+        .process-step {
+            position: relative;
+            padding: 2rem;
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        .team-member .member-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            overflow: hidden;
+            border: 5px solid #dc3545;
+            transition: all 0.3s ease;
+        }
+        .team-member:hover .member-image {
+            transform: scale(1.05);
+        }
+        .team-member img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .btn-primary {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            padding: 12px 25px;
+        }
+        .btn-primary:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+        .btn-light {
+            background-color: white;
+            border-color: white;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            padding: 12px 25px;
+            color: #dc3545;
+        }
+        .btn-light:hover {
+            background-color: #f8f9fa;
+            border-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        /* Estilos del navbar */
+        .navbar {
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #2c3e50, #1a1a1a) !important;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .brand-text {
+            background: linear-gradient(45deg, #fff, #f8f9fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.7rem 1.2rem !important;
+            transition: all 0.3s ease;
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #dc3545;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .nav-link.phone-link {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .nav-link.phone-link:hover {
+            background: rgba(201, 186, 186, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .nav-link.phone-link i {
+            color: #dc3545;
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        .nav-link.phone-link span {
+            font-size: 1.1rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .cart-icon {
+            font-size: 1.4rem;
+            padding: 0.7rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff !important;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .cart-icon:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .cart-icon .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #dc3545;
+            color: white;
+            border: 2px solid #fff;
+            font-size: 0.8rem;
+            padding: 0.4em 0.6em;
+            border-radius: 50%;
+            min-width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .cart-icon i {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 

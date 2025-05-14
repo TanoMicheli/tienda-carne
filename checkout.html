@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Compra - Carnes Premium</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-utensils me-2"></i>Carnes Premium</a>
+    </div>
+  </nav>
+
+  <!-- Checkout -->
+  <div class="container py-5 mt-5">
+    <div class="row">
+      <!-- Resumen del Carrito -->
+      <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="mb-0">Tu Carrito</h4>
+          <a href="index.html" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
+          </a>
+        </div>
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Resumen de tu Compra</h5>
+          </div>
+          <div class="card-body" id="checkoutItems">
+            <!-- Los items se cargarán por JavaScript -->
+          </div>
+        </div>
+
+        <!-- Información de Envío -->
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><i class="fas fa-truck me-2"></i>Información de Envío</h5>
+          </div>
+          <div class="card-body">
+            <form id="checkoutForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nombre Completo</label>
+                  <input type="text" class="form-control" name="nombre" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" name="telefono" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Dirección</label>
+                  <input type="text" class="form-control" name="direccion" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Ciudad</label>
+                  <input type="text" class="form-control" name="ciudad" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Código Postal</label>
+                  <input type="text" class="form-control" name="codigoPostal" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Instrucciones de Entrega</label>
+                  <textarea class="form-control" name="instrucciones" rows="3"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen de Pago -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm border-0 sticky-top" style="top: 100px;">
+          <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Resumen de Pago</h5>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal:</span>
+              <span id="checkoutSubtotal">$0</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Envío:</span>
+              <span>$500</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between mb-3">
+              <strong>Total:</strong>
+              <strong id="checkoutTotal" class="text-danger">$0</strong>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Método de Pago</label>
+              <select class="form-select" id="paymentMethod" onchange="mostrarDetallesPago()">
+                <option value="transferencia">Transferencia Bancaria</option>
+                <option value="mercadopago">Mercado Pago</option>
+                <option value="efectivo">Efectivo al Recibir</option>
+              </select>
+            </div>
+
+            <!-- Detalles de Transferencia Bancaria -->
+            <div id="transferenciaDetalles" class="payment-details mb-3">
+              <div class="alert alert-info">
+                <h6 class="alert-heading mb-2">Datos para Transferencia</h6>
+                <div class="mb-2">
+                  <strong>CVU:</strong> <span id="cvuNumber">1234567890123456789012</span>
+                  <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copiarAlPortapapeles('cvuNumber')">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="mb-2">
+                  <strong>Alias:</strong> <span id="aliasNumber">CARNES.PREMIUM</span>
+                  <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copiarAlPortapapeles('aliasNumber')">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="mb-2">
+                  <strong>Titular:</strong> <span id="accountHolder">CARNES PREMIUM S.A.</span>
+                  <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copiarAlPortapapeles('accountHolder')">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botón de Mercado Pago -->
+            <div id="mercadopagoDetalles" class="payment-details mb-3" style="display: none;">
+              <div id="mercadopago-button"></div>
+            </div>
+
+            <!-- Detalles de Pago en Efectivo -->
+            <div id="efectivoDetalles" class="payment-details mb-3" style="display: none;">
+              <div class="alert alert-warning">
+                <i class="fas fa-info-circle me-2"></i>
+                El pago se realizará al momento de la entrega. Por favor, tenga el monto exacto.
+              </div>
+            </div>
+
+            <button class="btn btn-primary w-100" id="confirmarCompraBtn" onclick="procesarPago()">
+              <i class="fas fa-lock me-2"></i>Confirmar Compra
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5 class="mb-3">Carnes Premium</h5>
+          <p>Calidad y frescura en cada corte</p>
+        </div>
+        <div class="col-md-4">
+          <h5 class="mb-3">Contacto</h5>
+          <p><i class="fas fa-phone me-2"></i>+54 9 11 1234-5678</p>
+          <p><i class="fas fa-envelope me-2"></i>info@carnespremium.com</p>
+        </div>
+        <div class="col-md-4">
+          <h5 class="mb-3">Síguenos</h5>
+          <div class="social-icons">
+            <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4">
+      <p class="mb-0">&copy; 2024 Carnes Premium. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notificación -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="notificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <i class="fas fa-check-circle me-2"></i>
+        <strong class="me-auto">¡Éxito!</strong>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Operación realizada con éxito.
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .card {
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    }
+    .card-header {
+      border-radius: 10px 10px 0 0 !important;
+    }
+    .form-control, .form-select {
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+      transition: all 0.3s ease;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+    .btn-primary {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+      transform: translateY(-1px);
+    }
+    .btn-outline-primary {
+      color: #dc3545;
+      border-color: #dc3545;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .btn-outline-primary:hover {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      transform: translateY(-1px);
+    }
+    .social-icons a {
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    .social-icons a:hover {
+      color: #dc3545 !important;
+    }
+    .border-bottom {
+      border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+    }
+
+    /* Estilos para los detalles de pago */
+    .payment-details {
+      transition: all 0.3s ease;
+    }
+
+    .alert {
+      border-radius: 8px;
+      border: none;
+    }
+
+    .alert-info {
+      background-color: #e8f4f8;
+      color: #0c5460;
+    }
+
+    .alert-warning {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .btn-outline-secondary {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    #mercadopago-button {
+      width: 100%;
+      height: 50px;
+      background-color: #009ee3;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #mercadopago-button:hover {
+      background-color: #007eb5;
+    }
+  </style>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <script src="checkout.js"></script>
+</body>
+</html> 

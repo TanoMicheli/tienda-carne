@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Cortes - Carnes Premium</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+    <!-- Navbar Mejorado -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="background: linear-gradient(135deg, #2c3e50, #1a1a1a);">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fas fa-utensils me-2"></i>
+                <span class="brand-text">Carnes Premium</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="productos.html">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sobreNosotros.html">Sobre Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="tel:+5491112345678" class="nav-link phone-link d-none d-lg-flex align-items-center">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+54 9 11 1234-5678</span>
+                    </a>
+                    <a class="nav-link position-relative cart-icon" href="#" id="cartBtn">
+                        <i class="fas fa-shopping-cart fa-lg"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Mejorado -->
+    <header class="jumbotron jumbotron-fluid text-white d-flex align-items-center" style="margin-top: 76px;">
+        <div class="overlay"></div>
+        <div class="container text-center position-relative">
+            <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Nuestros Cortes Premium</h1>
+            <p class="lead animate__animated animate__fadeInUp">Descubre nuestra selección de los mejores cortes de carne</p>
+        </div>
+    </header>
+
+    <!-- Filtros Mejorados -->
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <select class="form-select shadow-sm" id="categoriaFilter">
+                    <option value="">Todas las categorías</option>
+                    <option value="premium">Premium</option>
+                    <option value="tradicional">Tradicional</option>
+                    <option value="especial">Especial</option>
+                    <option value="pollo">Pollo</option>
+                    <option value="preparados">Preparados</option>
+                    <option value="embutidos">Embutidos</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select shadow-sm" id="precioFilter">
+                    <option value="">Todos los precios</option>
+                    <option value="0-3000">Hasta $3,000</option>
+                    <option value="3000-5000">$3,000 - $5,000</option>
+                    <option value="5000+">Más de $5,000</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group shadow-sm">
+                    <input type="text" class="form-control" placeholder="Buscar corte..." id="searchInput">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Productos -->
+    <section class="container py-5">
+        <div class="row g-4" id="productos-lista">
+            <!-- Los productos se cargarán dinámicamente -->
+        </div>
+    </section>
+
+    <!-- Modal Carrito Mejorado -->
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #2c3e50, #1a1a1a); color: white;">
+                    <h5 class="modal-title">
+                        <i class="fas fa-shopping-cart me-2"></i>Carrito de Compras
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cartItems" class="cart-items-container"></div>
+                    <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light rounded">
+                        <div>
+                            <strong class="h5 mb-0">Total: <span id="cartTotal" class="text-danger">$0</span></strong>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
+                            </button>
+                            <button class="btn btn-success" id="checkoutBtn">
+                                <i class="fas fa-check me-2"></i>Finalizar Compra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notificación Mejorado -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="notificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">¡Éxito!</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                Producto agregado al carrito correctamente.
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Mejorado -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <h5 class="mb-3">Carnes Premium</h5>
+                    <p class="text-muted text-white">Calidad y frescura en cada corte. Tu carnicería de confianza.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="mb-3">Horario de Atención</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2 text-white">Lunes a Viernes: 8:00 - 20:00</li>
+                        <li class="mb-2 text-white">Sábados: 8:00 - 18:00</li>
+                        <li class="text-white">Domingos: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2024 Carnes Premium. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Términos y Condiciones</a>
+                    <a href="#" class="text-white text-decoration-none">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        /* Estilos mejorados */
+        .jumbotron {
+            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+            height: 40vh;
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+        }
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+        }
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+        .card-img-top {
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .card:hover .card-img-top {
+            transform: scale(1.1);
+        }
+        .btn-primary {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            padding: 12px 25px;
+        }
+        .btn-primary:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+        .form-select, .form-control {
+            border-radius: 10px;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+        .form-select:focus, .form-control:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+        .navbar {
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #2c3e50, #1a1a1a) !important;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .brand-text {
+            background: linear-gradient(45deg, #fff, #f8f9fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.7rem 1.2rem !important;
+            transition: all 0.3s ease;
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #dc3545;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .cart-icon {
+            font-size: 1.4rem;
+            padding: 0.7rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff !important;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .cart-icon:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .cart-icon .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #dc3545;
+            color: white;
+            border: 2px solid #fff;
+            font-size: 0.8rem;
+            padding: 0.4em 0.6em;
+            border-radius: 50%;
+            min-width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .cart-icon i {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .cart-items-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        .cart-items-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .cart-items-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .cart-items-container::-webkit-scrollbar-thumb {
+            background: #dc3545;
+            border-radius: 4px;
+        }
+        .cart-items-container::-webkit-scrollbar-thumb:hover {
+            background: #c82333;
+        }
+        .toast {
+            background-color: white;
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+        .toast-header {
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+        }
+        .toast-body {
+            padding: 1rem;
+            font-weight: 500;
+        }
+        .btn-outline-secondary {
+            border-color: #6c757d;
+            color: #6c757d;
+            border-radius: 10px;
+            padding: 12px 25px;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            border-radius: 10px;
+            padding: 12px 25px;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        .nav-link.phone-link {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .nav-link.phone-link:hover {
+            background: rgba(201, 186, 186, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .nav-link.phone-link i {
+            color: #dc3545;
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        .nav-link.phone-link span {
+            font-size: 1.1rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script src="productos.js"></script>
+</body>
+</html> 
