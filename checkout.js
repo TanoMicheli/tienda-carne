@@ -353,7 +353,7 @@ function mostrarItemsCheckout() {
                 <img src="${item.imagen}" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;" alt="${item.nombre}">
                 <div class="flex-grow-1">
                     <h6 class="mb-1">${item.nombre}</h6>
-                    <p class="small text-muted mb-1">${item.kilos} kg x ${item.cantidad} unidad(es)</p>
+                    <p class="small text-muted mb-1">${item.cantidad} unidad(es)</p>
                     <div class="d-flex justify-content-between">
                         <span>$${item.precio} c/u</span>
                         <strong>Subtotal: $${itemTotal}</strong>

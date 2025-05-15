@@ -1,7 +1,37 @@
 // Verificar si el usuario está autenticado
-if (!localStorage.getItem('adminLoggedIn')) {
-    window.location.href = 'login.html';
+function checkAuth() {
+        const isAuthenticated = localStorage.getItem('adminLoggedIn');    if (!isAuthenticated) {        window.location.href = 'login.html';    }
 }
+
+// Función para cerrar sesión
+function logout() {
+    localStorage.removeItem('adminLoggedIn');
+    window.location.href = '../index.html';
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Verificar autenticación al cargar la página
+    checkAuth();
+
+    // Manejar cierre de sesión
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            logout();
+        });
+    }
+
+    // Manejar redirección a vista cliente
+    const clientViewBtn = document.getElementById('clientViewBtn');
+    if (clientViewBtn) {
+        clientViewBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            logout(); // Cerramos sesión antes de redirigir
+        });
+    }
+});
 
 // Productos iniciales
 const productosIniciales = [
@@ -168,12 +198,6 @@ const productosIniciales = [
         inStock: true
     }
 ];
-
-// Manejar el cierre de sesión
-document.getElementById('logoutBtn').addEventListener('click', () => {
-    localStorage.removeItem('adminLoggedIn');
-    window.location.href = 'login.html';
-});
 
 // Clase para manejar los productos
 class ProductManager {

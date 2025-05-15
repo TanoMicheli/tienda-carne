@@ -164,128 +164,143 @@ const productosDestacados = [
     }
 ];
 
-class ProductsView {
+// Clase para manejar los productos
+class ProductosManager {
     constructor() {
-        this.products = productosDestacados; // Usar los productos destacados
-        this.loadProducts();
+        this.productos = JSON.parse(localStorage.getItem('products')) || [];
         this.setupEventListeners();
-        this.setupFilters();
+        this.loadProducts();
     }
 
-    loadProducts(filteredProducts = null) {
-        const container = document.getElementById('productos-lista');
-        const productsToShow = filteredProducts || this.products;
+    setupEventListeners() {
+        // Filtro por categoría
+        document.getElementById('categoriaFilter').addEventListener('change', () => this.filterProducts());
         
+        // Filtro por precio
+        document.getElementById('precioFilter').addEventListener('change', () => this.filterProducts());
+        
+        // Búsqueda por texto
+        document.getElementById('searchInput').addEventListener('input', () => this.filterProducts());
+
+        // Escuchar cambios en el localStorage
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'products') {
+                this.productos = JSON.parse(e.newValue || '[]');
+                this.loadProducts();
+            }
+        });
+    }
+
+    filterProducts() {
+        const categoria = document.getElementById('categoriaFilter').value;
+        const precioRango = document.getElementById('precioFilter').value;
+        const busqueda = document.getElementById('searchInput').value.toLowerCase();
+
+        let productosFiltrados = this.productos;
+
+        // Filtrar por categoría
+        if (categoria) {
+            productosFiltrados = productosFiltrados.filter(p => p.category === categoria);
+        }
+
+        // Filtrar por precio
+        if (precioRango) {
+            const [min, max] = precioRango.split('-').map(Number);
+            productosFiltrados = productosFiltrados.filter(p => {
+                if (max) {
+                    return p.price >= min && p.price <= max;
+                } else {
+                    return p.price >= min;
+                }
+            });
+        }
+
+        // Filtrar por búsqueda
+        if (busqueda) {
+            productosFiltrados = productosFiltrados.filter(p => 
+                p.name.toLowerCase().includes(busqueda) || 
+                p.description.toLowerCase().includes(busqueda)
+            );
+        }
+
+        this.displayProducts(productosFiltrados);
+    }
+
+    displayProducts(products) {
+        const container = document.getElementById('productos-lista');
         container.innerHTML = '';
 
-        productsToShow.forEach(product => {
-            const productCard = this.createProductCard(product);
-            container.appendChild(productCard);
-        });
-
-        if (productsToShow.length === 0) {
+        if (products.length === 0) {
             container.innerHTML = `
-                <div class="col-12 text-center">
-                    <h3>No se encontraron productos</h3>
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h3 class="text-muted">No se encontraron productos</h3>
                 </div>
             `;
+            return;
         }
-    }
 
-    createProductCard(product) {
-        const col = document.createElement('div');
-        col.className = 'col-md-4 mb-4';
-        col.innerHTML = `
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-img-wrapper">
-                    <img src="${product.imagen}" class="card-img-top" alt="${product.nombre}">
-                    <div class="card-img-overlay d-flex align-items-end">
-                        <span class="badge bg-${this.getCategoryBadgeClass(product.categoria)}">${this.getCategoryName(product.categoria)}</span>
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'col-md-4 mb-4';
+            productCard.innerHTML = `
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-wrapper">
+                        <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                        <div class="card-img-overlay d-flex align-items-end">
+                            <span class="badge ${this.getCategoryBadgeClass(product.category)}">${this.getCategoryName(product.category)}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">${product.description}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0 text-danger">$${product.price}</span>
+                            ${product.inStock ? `
+                                <button class="btn btn-primary" onclick="agregarAlCarrito('${product.name}', ${product.price}, '${product.image}')">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar
+                                </button>
+                            ` : `
+                                <button class="btn btn-secondary" disabled>
+                                    <i class="fas fa-times me-2"></i>Sin Stock
+                                </button>
+                            `}
+                        </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">${product.nombre}</h5>
-                    <p class="card-text">${product.descripcion}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 mb-0 text-danger">$${product.precio}</span>
-                        <button class="btn btn-primary" onclick="agregarAlCarrito('${product.nombre}', ${product.precio}, ${product.kilos})">
-                            <i class="fas fa-cart-plus me-2"></i>Agregar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        return col;
+            `;
+            container.appendChild(productCard);
+        });
     }
 
     getCategoryBadgeClass(category) {
         const classes = {
-            premium: 'danger',
-            tradicional: 'primary',
-            especial: 'warning',
-            pollo: 'success',
-            preparados: 'info',
-            embutidos: 'secondary'
+            'premium': 'bg-danger',
+            'tradicional': 'bg-primary',
+            'especial': 'bg-warning text-dark',
+            'pollo': 'bg-success',
+            'preparados': 'bg-info',
+            'embutidos': 'bg-secondary'
         };
-        return classes[category] || 'primary';
+        return classes[category] || 'bg-primary';
     }
 
     getCategoryName(category) {
-        return category.charAt(0).toUpperCase() + category.slice(1);
-    }
-
-    setupEventListeners() {
-        // Escuchar cambios en los productos desde el panel de administración
-        window.addEventListener('productsUpdated', (event) => {
-            this.products = event.detail.products;
-            this.loadProducts();
-        });
-    }
-
-    setupFilters() {
-        const categoriaFilter = document.getElementById('categoriaFilter');
-        const precioFilter = document.getElementById('precioFilter');
-        const searchInput = document.getElementById('searchInput');
-
-        const applyFilters = () => {
-            let filtered = [...this.products];
-
-            // Filtro por categoría
-            if (categoriaFilter.value) {
-                filtered = filtered.filter(p => p.categoria === categoriaFilter.value);
-            }
-
-            // Filtro por precio
-            if (precioFilter.value) {
-                const [min, max] = precioFilter.value.split('-').map(Number);
-                filtered = filtered.filter(p => {
-                    if (max) {
-                        return p.precio >= min && p.precio <= max;
-                    } else {
-                        return p.precio >= min;
-                    }
-                });
-            }
-
-            // Filtro por búsqueda
-            if (searchInput.value) {
-                const searchTerm = searchInput.value.toLowerCase();
-                filtered = filtered.filter(p => 
-                    p.nombre.toLowerCase().includes(searchTerm) ||
-                    p.descripcion.toLowerCase().includes(searchTerm)
-                );
-            }
-
-            this.loadProducts(filtered);
+        const names = {
+            'premium': 'Premium',
+            'tradicional': 'Tradicional',
+            'especial': 'Especial',
+            'pollo': 'Pollo',
+            'preparados': 'Preparados',
+            'embutidos': 'Embutidos'
         };
+        return names[category] || category;
+    }
 
-        // Aplicar filtros cuando cambien los valores
-        categoriaFilter.addEventListener('change', applyFilters);
-        precioFilter.addEventListener('change', applyFilters);
-        searchInput.addEventListener('input', applyFilters);
+    loadProducts() {
+        this.displayProducts(this.productos);
     }
 }
 
-// Inicializar la vista de productos
-const productsView = new ProductsView(); 
+// Inicializar el administrador de productos
+const productosManager = new ProductosManager(); 
